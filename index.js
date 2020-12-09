@@ -11,26 +11,25 @@ const bodyRef = document.querySelector("body");
 const btnStartRef = document.querySelector('button[data-action ="start"]');
 
 const btnStopRef = document.querySelector('button[data-action ="stop"]');
-btnStartRef.addEventListener("click", handleStart);
-btnStopRef.addEventListener("click", handleStop);
-console.dir(btnStartRef);
+
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-function handleStart() {
-  const intervalId = setInterval(() => {
-    let randomNum = randomIntegerFromInterval(0, colors.length);
-    bodyRef.style.background = colors[randomNum];
-    btnStartRef.disabled = true;
-    console.dir(btnStartRef);
-  }, 1000);
-}
-function handleStop() {
-  setInterval(() => {
-    let randomNum = randomIntegerFromInterval(0, colors.length);
-    bodyRef.style.background = colors[randomNum];
-    btnStartRef.disabled = true;
-    console.dir(btnStartRef);
-  }, 1000);
-}
+const handleBtn = {
+  intervalId: null,
+  Start() {
+    this.intervalId = setInterval(() => {
+      let randomNum = randomIntegerFromInterval(0, colors.length);
+      bodyRef.style.background = colors[randomNum];
+      btnStartRef.disabled = true;
+    }, 1000);
+  },
+  Stop() {
+    clearInterval(this.intervalId);
+    btnStartRef.disabled = false;
+  },
+};
+
+btnStartRef.addEventListener("click", handleBtn.Start.bind(handleBtn));
+btnStopRef.addEventListener("click", handleBtn.Stop.bind(handleBtn));
