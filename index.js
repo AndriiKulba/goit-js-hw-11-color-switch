@@ -18,18 +18,18 @@ const randomIntegerFromInterval = (min, max) => {
 
 const handleBtn = {
   intervalId: null,
-  Start() {
+  start() {
     this.intervalId = setInterval(() => {
       let randomNum = randomIntegerFromInterval(0, colors.length);
       bodyRef.style.background = colors[randomNum];
       btnStartRef.disabled = true;
     }, 1000);
   },
-  Stop() {
+  stop() {
     clearInterval(this.intervalId);
     btnStartRef.disabled = false;
   },
 };
 
-btnStartRef.addEventListener("click", handleBtn.Start.bind(handleBtn));
-btnStopRef.addEventListener("click", handleBtn.Stop.bind(handleBtn));
+btnStartRef.addEventListener("click", handleBtn.start.bind(handleBtn));
+btnStopRef.addEventListener("click", handleBtn.stop.bind(handleBtn));
